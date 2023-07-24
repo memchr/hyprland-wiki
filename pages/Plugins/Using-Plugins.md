@@ -66,6 +66,14 @@ this next step of getting the sources and checking them out.
 
 ### Preparing Hyprland sources for plugins
 
+{{< hint type=note >}}
+
+This step is not required if any of those apply to you:
+ - You use the Arch official `hyprland` package
+ - You install manually with `sudo make install`
+
+{{< /hint >}}
+
 Inside the repo, clone Hyprland and enter it:
 ```sh
 git clone --recursive https://github.com/hyprwm/Hyprland && cd Hyprland
@@ -78,7 +86,7 @@ git checkout tags/v0.24.1
 
 Prepare Hyprland sources:
 ```sh
-make pluginenv
+sudo make pluginenv
 ```
 
 {{< hint type=note >}}

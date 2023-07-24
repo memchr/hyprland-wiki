@@ -54,6 +54,8 @@ SHIFT CAPS CTRL/CONTROL ALT MOD2 MOD3 SUPER/WIN/LOGO/MOD4 MOD5
 | col.active_border | border color for the active window | gradient | 0xff444444 |
 | col.group_border | inactive (out of focus) group border color | gradient | 0x66777700 |
 | col.group_border_active | active group border color | gradient | 0x66ffff00 |
+| col.group_border_locked | inactive locked group border color | gradient | 0x66775500 |
+| col.group_border_locked_active | active locked group border color | gradient | 0x66ff5500 |
 | cursor_inactive_timeout | in seconds, after how many seconds of cursor's inactivity to hide it. Set to `0` for never. | int | 0 |
 | layout | which layout to use. (Available: `dwindle`, `master`) | str | dwindle |
 | no_cursor_warps | if true, will not warp the cursor in many cases (focusing, keybinds, etc) | bool | false |
@@ -236,6 +238,7 @@ Described [here](../Keywords#per-device-input-configs).
 | workspace_swipe_create_new | whether a swipe right on the last workspace should create a new one. | bool | true |
 | workspace_swipe_forever | if enabled, swiping will not clamp at the neighboring workspaces but continue to the further ones. | bool | false |
 | workspace_swipe_numbered | if enabled, swiping will swipe on consecutive numbered workspaces. | bool | false |
+| workspace_swipe_use_r | if enabled, swiping will use the `r` prefix instead of the `m` prefix for finding workspaces. (requires disabled `workspace_swipe_numbered`) | bool | false |
 
 # Misc
 
@@ -243,6 +246,7 @@ Described [here](../Keywords#per-device-input-configs).
 |---|---|---|---|
 | disable_hyprland_logo | disables the hyprland logo background. :( | bool | false |
 | disable_splash_rendering | disables the hyprland splash rendering. (requires a monitor reload to take effect) | bool | false |
+| force_hypr_chan | makes the background always have hypr-chan, the hyprland mascot | bool | false |
 | vfr | controls the VFR status of hyprland. Heavily recommended to leave on true to conserve resources. | bool | true |
 | vrr | controls the VRR (Adaptive Sync) of your monitors. 0 - off, 1 - on, 2 - fullscreen only | int | 0 |
 | mouse_move_enables_dpms | If DPMS is set to off, wake up the monitors if the mouse moves. | bool | false |
@@ -265,6 +269,7 @@ Described [here](../Keywords#per-device-input-configs).
 | cursor_zoom_factor | the factor to zoom by around the cursor. AKA. Magnifying glass. Minimum 1.0 (meaning no zoom) | float | 1.0 |
 | cursor_zoom_rigid | whether the zoom should follow the cursor rigidly (cursor is always centered if it can be) or loosely | bool | false |
 | allow_session_lock_restore | if true, will allow you to restart a lockscreen app in case it crashes (red screen of death) | bool | false |
+| group_insert_after_current | whether new windows in a group spawn after current or at group tail | bool | true |
 | render_titles_in_groupbar | whether to render titles in the group bar decoration | bool | true |
 | groupbar_titles_font_size | font size for the above | int | 8 |
 | groupbar_gradients | whether to draw gradients under the titles of the above | bool | true |
@@ -279,6 +284,13 @@ Described [here](../Keywords#per-device-input-configs).
 | workspace_back_and_forth | If enabled, an attempt to switch to the currently focused workspace will instead switch to the previous workspace. Akin to i3's *auto_back_and_forth*. | bool | false |
 | allow_workspace_cycles | If enabled, workspaces don't forget their previous workspace, so cycles can be created by switching to the first workspace in a sequence, then endlessly going to the previous workspace. | bool | false |
 | focus_preferred_method | sets the preferred focus finding method when using `focuswindow`/`movewindow`/etc with a direction. 0 - history (recent have priority), 1 - length (longer shared edges have priority) | int | 0 |
+
+# XWayland
+
+| name | description | type | default |
+|---|---|---|---|
+| use_nearest_neighbor | uses the nearest neigbor filtering for xwayland apps, making them pixelated rather than blurry | bool | true |
+| force_zero_scaling | forces a scale of 1 on xwayland windows on scaled displays. | bool | false |
 
 # Debug
 

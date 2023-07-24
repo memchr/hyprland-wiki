@@ -35,13 +35,25 @@ the `RULE` field is unchanged, but in the `WINDOW` field, you can put regexes
 for multiple values like so:
 
 ```ini
-windowrulev2 = float,class:^(kitty)$,title:^(kitty)$
+windowrulev2 = float,class:(kitty),title:(kitty)
 ```
+
+{{< hint type=tip >}}
+In the case of dynamic window titles such as browser windows keep in mind how powerful regex is.
+
+for example a window rule of: `windowrule=opacity 0.3 override 0.3 override,title:(Zizaran - Twitch)(.*)$` will match 
+*any* window that contains a string of "Zizaran - Twitch" before any other text. This could be multiple browser windows 
+or other applications that contain the string for any reason. 
+
+
+for the `windowrulev2 = float,class:(kitty),title:(kitty)` example, the `class:(kitty)` `WINDOW` field is what keeps the window rule
+specific to kitty terminals. 
+{{< /hint >}}
 
 For now, the supported fields are:
 
 ```ini
-class - class regex
+class - class regex 
 title - title regex
 xwayland - 0/1
 floating - 0/1
@@ -68,6 +80,7 @@ you can use `hyprctl clients`.
 | fakefullscreen | fakefullscreens a window | |
 | maximize | maximizes a window | |
 | nofullscreenrequest | prevents windows from requesting fullscreen mode, you can still manually toggle fullscreen. | |
+| nomaximizerequest | prevents windows from requesting maximized mode, you can still manually toggle maximize. | |
 | move \[x\] \[y\] | moves a floating window (x,y -> int or %, e.g. 20% or 100. You are also allowed to do `100%-` for the right/bottom anchor, e.g. `100%-20`) Additionally, you can also do `cursor [x] [y]` where x and y are either pixels or percent. Percent is calculated from the window's size. | |
 | size \[x\] \[y\] | resizes a floating window (x,y -> int or %, e.g. 20% or 100) | |
 | minsize \[x\] \[y\] | sets the minimum size on creation (x,y -> int) | |
@@ -85,6 +98,7 @@ you can use `hyprctl clients`.
 | nofocus | disables focus to the window | |
 | noinitialfocus | disables the initial focus to the window | |
 | noborder | disables borders for the window |&check;|
+| bordersize \[size\] | sets the border size |&check;|
 | nodim | disables window dimming for the window |&check;|
 | noshadow | disables shadows for the window |&check;|
 | forceinput | forces an XWayland window to receive input, even if it requests not to do so. (Might fix issues like e.g. Game Launchers not receiving focus for some reason) | |
@@ -96,6 +110,7 @@ you can use `hyprctl clients`.
 | unset | removes all previously set rules for the given parameters. Please note it has to match EXACTLY. | |
 | nomaxsize | removes max size limitations. Especially useful with windows that report invalid max sizes (e.g. winecfg) | |
 | dimaround | dims everything around the window . Please note this rule is meant for floating windows and using it on tiled ones may result in strange behavior. | &check; |
+| stayfocused | forces focus on the window as long as it's visible |  |
 
 ### Example Rules
 
@@ -163,4 +178,5 @@ or `address` is an address in the form of `address:0x[hex]`
 | unset | removes all layerRules previously set for a select namespace regex. Please note it has to match _exactly_ |
 | noanim | disables animations |
 | blur | enables blur for the layer |
-| ignorezero | makes blur ignore fully transparent pixels of the layer |
+| ignorealpha \[a\] | makes blur ignore pixels with opacity of `a` or lower. `a` is float value from 0 to 1. `a = 0` if unspecified. |
+| ignorezero | makes blur ignore fully transparent pixels. Same as `ignorealpha 0`. |
